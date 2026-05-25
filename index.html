@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Particle Figure-8</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0; padding: 0; width: 100%; height: 100%;
+      background: #000; overflow: hidden;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      color: #777;
+    }
+    canvas { display: block; position: absolute; inset: 0; cursor: crosshair; }
+    .label-thats-you {
+      position: fixed; top: 22px; right: 28px;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic; font-weight: 300;
+      font-size: clamp(18px, 2.4vw, 34px);
+      letter-spacing: 0.18em;
+      color: transparent;
+      background: linear-gradient(135deg, #d4a96a 0%, #f0d9a8 40%, #c8884a 70%, #e8c880 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      opacity: 0.82;
+      pointer-events: none; user-select: none;
+      text-transform: uppercase;
+      z-index: 5;
+    }
+    .hint {
+      position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%);
+      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+      opacity: 0.4; pointer-events: none; user-select: none;
+    }
+
+    #tweaks {
+      position: fixed; right: 18px; bottom: 18px;
+      width: 260px; padding: 14px 16px 16px;
+      background: rgba(14,14,16,0.92);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 10px;
+      color: #d8d4cc;
+      font: 11px/1.4 ui-monospace, Menlo, monospace;
+      letter-spacing: 0.04em;
+      backdrop-filter: blur(8px);
+      z-index: 10;
+      user-select: none;
+    }
+    #tweaks .tw-head {
+      display: flex; align-items: center; justify-content: space-between;
+      text-transform: uppercase; letter-spacing: 0.22em;
+      font-size: 10px; opacity: 0.75; margin-bottom: 12px;
+    }
+    #tweaks .tw-head button {
+      background: none; border: none; color: #d8d4cc; font-size: 18px;
+      line-height: 1; cursor: pointer; padding: 0 2px; opacity: 0.6;
+    }
+    #tweaks .tw-head button:hover { opacity: 1; }
+    #tweaks .tw-row { display: flex; align-items: center; gap: 10px; }
+    #tweaks .tw-row label {
+      flex: 0 0 64px; opacity: 0.75; text-transform: uppercase;
+      font-size: 10px; letter-spacing: 0.18em;
+    }
+    #tweaks .tw-row input[type=range] { flex: 1; accent-color: #d99a4a; }
+    #tweaks .tw-val {
+      flex: 0 0 36px; text-align: right;
+      font-variant-numeric: tabular-nums; opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <div class="label-thats-you">That's You</div>
+  <div class="hint">click to blink · move cursor to part the field</div>
+
+  <div id="tweaks" hidden>
+    <div class="tw-head">
+      <span>Tweaks</span>
+      <button id="tw-close" aria-label="close">×</button>
+    </div>
+    <div class="tw-row">
+      <label for="tw-eye">Eye size</label>
+      <input id="tw-eye" type="range" min="0.5" max="3" step="0.05" />
+      <span id="tw-eye-val" class="tw-val"></span>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
